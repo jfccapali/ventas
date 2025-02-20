@@ -1,8 +1,45 @@
-<form action="{{route('categoria.store')}}" method="POST" >
-    @csrf
-    <label for="">nombre categoria</label>
-    <input type="text" name="nombre_categoria" >
-    <label for="">descripcion</label>
-    <textarea name="descripcion" cols="30" rows="4"></textarea>
-    <button>grabar</button>
-</form>
+@extends('layout.adminlte.index')
+
+@section('titulo','Categoria crear')
+
+@section('contenido')
+
+<div class="row">
+    <div class="col-12 col-md-10 col-lg-6 col-xl-4">
+        <div class="card">
+            <div class="card-header text-white bg-primary">
+                crear nueva categoria
+            </div>
+            <div class="card-body">
+                <form action="{{route('categoria.store')}}" method="POST" >
+                    @csrf
+                    <div class="form-group">
+                        <label for="nombre_categoria">nombre categoria</label>
+                        <input type="text" name="nombre_categoria" class="form-control" id="nombre_categoria" value="{{old('nombre_categoria')}}" >
+                        <div class="invalid-feedback">@error('nombre_categoria')  @enderror</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="descripcion">descripcion</label>
+                        <textarea name="descripcion" class="form-control" rows="4" id="descripcion">{{old('descripcion')}}</textarea>
+                        <div class="invalid-feedback">@error('descripcion') @enderror</div>
+                    </div>
+                    <button class="btn btn-primary"><i class="fas fa-save"></i>  Grabar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@error('id_categoria') <span>error</span> @enderror
+
+<ul>
+    @foreach ($errors->all() as $error)
+        <li>{{ $error }}</li>
+    @endforeach
+</ul>
+@endsection
+

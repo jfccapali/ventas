@@ -2,27 +2,36 @@
 
 namespace App\Http\Requests\categoria;
 
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 
 class Categoria_index_request extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
     public function authorize(): bool
     {
         return true;
     }
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
-     */
+    protected function prepareForValidation()
+    {
+        $id_categoria=Str::of(strip_tags($this->id_categoria))->squish()->trim()->toString();
+
+        $this->merge([
+            'id_categoria' =>$id_categoria==''?null:$id_categoria,
+        ]);
+    }
+
     public function rules(): array
     {
         return [
             'id_categoria'=>'required|integer'
+        ];
+    }
+
+    public function attributes()
+    {
+        return [
+            'id_categoria' => 'codigo categoria',
         ];
     }
 }
