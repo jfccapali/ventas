@@ -45,16 +45,12 @@
 @endsection
 
 @section('js')
-    <script>
-        @if (session('error'))
-        console.log('hola');
-
-        Swal.fire({
-            title: "The Internet?",
-            text: "That thing is still around?",
-            icon: "question"
-        });
-
+<script>
+        @if (session()->has('error'))
+            Swal.fire({
+                icon: 'error',
+                text: '{{session('error')}}'
+            });
         @endif
-    </script>
+</script>
 @endsection

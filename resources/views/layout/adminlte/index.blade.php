@@ -23,6 +23,8 @@
 
   <!-- summernote -->
   <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
+  <link rel="stylesheet" href="{{asset('plugins/sweetalert2/sweetalert2.min.css')}}">
+  <link rel="stylesheet" href="{{asset('plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')}}">
     @yield('css')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -916,6 +918,8 @@
 <script src="{{asset('dist/js/adminlte.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+<script src="{{asset('plugins/sweetalert2/sweetalert2.all.min.js')}}"></script>
+<script src="{{asset('plugins/moment/moment-with-locales.min.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 @yield('js')
 </body>

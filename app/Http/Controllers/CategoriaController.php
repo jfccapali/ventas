@@ -6,6 +6,7 @@ use App\Http\Requests\categoria\Categoria_index_request;
 use App\Http\Requests\categoria\Categoria_store_request;
 use App\Http\Servicios\categoria\CategoriaService;
 use App\Models\Categoria;
+use Exception;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
@@ -42,12 +43,12 @@ class CategoriaController extends Controller
 
     public function store(Categoria_store_request $request)
     {
-        try {
+        try { throw new Exception('hola');
             $this->categoria_service->store($request->nombre_categoria,$request->descripcion);
 
             return redirect()->route('categoria.index')->with('success','Se grabo correctamente');
         } catch (\Throwable $th) {
-            return redirect()->route('categoria.store')->with('error',$th->getMessage());
+            return redirect()->route('categoria.create')->with('error',$th->getMessage());
         }
     }
 
