@@ -4,17 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\categoria\Categoria_index_request;
 use App\Http\Requests\categoria\Categoria_store_request;
+use App\Http\Servicios\categoria\CategoriaService;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
 
 class CategoriaController extends Controller
 {
-    public function index(Request $request)
+
+    private CategoriaService $categoria_service;
+
+    public function __construct(CategoriaService $categoria_service)
+    {
+        $this->categoria_service=$categoria_service;
+    }
+
+    public function index()
     {
         try {
-
-            ;
-            //dd($request->all());
 
             $categoria=new Categoria();
             $data=$categoria->paginate(10);
@@ -37,11 +43,7 @@ class CategoriaController extends Controller
     public function store(Categoria_store_request $request)
     {
         try {
-            $categoria=new Categoria();
-            $categoria->nombre_categoria=$request->nombre_categoria;
-            $categoria->descripcion=$request->descripcion;
-            $categoria->estado='1';
-            $categoria->save();
+            $this->categoria_service->store($request->nombre_categoria,$request->descripcion);
 
             return redirect()->route('categoria.index')->with('success','Se grabo correctamente');
         } catch (\Throwable $th) {

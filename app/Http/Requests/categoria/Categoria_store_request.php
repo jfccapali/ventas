@@ -15,10 +15,12 @@ class Categoria_store_request extends FormRequest
 
     protected function prepareForValidation()
     {
-        $nombre_categoria=Str::of(strip_tags($this->nombre_categoria))->squish()->trim()->toString();
+        $nombre_categoria=Str::of(strip_tags($this->nombre_categoria))->squish()->trim()->upper()->toString();
+        $descripcion=Str::of(strip_tags($this->descripcion))->squish()->trim()->lower()->toString();
 
         $this->merge([
             'nombre_categoria' =>$nombre_categoria==''?null:$nombre_categoria,
+            'descripcion' =>$descripcion==''?null:$descripcion,
         ]);
     }
 
@@ -26,7 +28,7 @@ class Categoria_store_request extends FormRequest
     {
         return [
             'nombre_categoria'=>['required','min:3','max:255','unique:categorias,nombre_categoria'],
-            'descripcion'=>['nullable','min:5','max:500']
+            'descripcion'=>['nullable','min:5','max:500'],
         ];
     }
 

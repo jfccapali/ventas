@@ -16,7 +16,7 @@
                     <div class="form-group">
                         <label for="nombre_categoria">nombre categoria</label>
                         <input type="text" name="nombre_categoria" class="form-control" id="nombre_categoria" value="{{old('nombre_categoria')}}" >
-                        <div class="invalid-feedback">@error('nombre_categoria')  @enderror</div>
+                        <div class="error">@error('nombre_categoria') {{$message}} @enderror</div>
                     </div>
 
                     <div class="form-group">
@@ -25,6 +25,7 @@
                         <div class="invalid-feedback">@error('descripcion') @enderror</div>
                     </div>
                     <button class="btn btn-primary"><i class="fas fa-save"></i>  Grabar</button>
+                    <a class="btn btn-danger" href="{{route('categoria.index')}}" > <i class="fas fa-door-open"></i> Salir</a>
                 </form>
             </div>
         </div>
@@ -43,3 +44,17 @@
 </ul>
 @endsection
 
+@section('js')
+    <script>
+        @if (session('error'))
+        console.log('hola');
+
+        Swal.fire({
+            title: "The Internet?",
+            text: "That thing is still around?",
+            icon: "question"
+        });
+
+        @endif
+    </script>
+@endsection
