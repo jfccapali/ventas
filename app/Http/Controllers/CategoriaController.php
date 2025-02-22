@@ -43,7 +43,7 @@ class CategoriaController extends Controller
 
     public function store(Categoria_store_request $request)
     {
-        try { throw new Exception('hola');
+        try {
             $this->categoria_service->store($request->nombre_categoria,$request->descripcion);
 
             return redirect()->route('categoria.index')->with('success','Se grabo correctamente');
@@ -52,5 +52,19 @@ class CategoriaController extends Controller
         }
     }
 
+    public function edit(int $id_categoria)
+    {
+        try {
+            $data=Categoria::select(['id_categoria','nombre_categoria','descripcion','estado'])->where('id_categoria',$id_categoria)->first();
+
+            if($data==null){
+                throw new Exception('Registro no encontrado');
+            }
+
+            return view('categoria.edit',['data'=>$data]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 
 }

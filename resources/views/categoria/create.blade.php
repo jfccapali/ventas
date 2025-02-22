@@ -11,7 +11,7 @@
                 crear nueva categoria
             </div>
             <div class="card-body">
-                <form action="{{route('categoria.store')}}" method="POST" >
+                <form action="{{route('categoria.store')}}" method="POST" id="formulario_crear" >
                     @csrf
                     <div class="form-group">
                         <label for="nombre_categoria">nombre categoria</label>
@@ -22,9 +22,9 @@
                     <div class="form-group">
                         <label for="descripcion">descripcion</label>
                         <textarea name="descripcion" class="form-control" rows="4" id="descripcion">{{old('descripcion')}}</textarea>
-                        <div class="invalid-feedback">@error('descripcion') @enderror</div>
+                        <div class="error">@error('descripcion') {{$message}} @enderror</div>
                     </div>
-                    <button class="btn btn-primary"><i class="fas fa-save"></i>  Grabar</button>
+                    <button class="btn btn-primary" id="btnGuardar" ><i class="fas fa-save"></i>  Grabar</button>
                     <a class="btn btn-danger" href="{{route('categoria.index')}}" > <i class="fas fa-door-open"></i> Salir</a>
                 </form>
             </div>
@@ -46,11 +46,40 @@
 
 @section('js')
 <script>
-        @if (session()->has('error'))
-            Swal.fire({
-                icon: 'error',
-                text: '{{session('error')}}'
-            });
-        @endif
+    let cont=0;
+    @if (session()->has('error'))
+        Swal.fire({
+            icon: 'error',
+            text: '{{session('error')}}'
+        });
+    @endif
+
+    @if (session()->has('success'))
+        Swal.fire({
+            icon: 'success',
+            text: '{{session('success')}}'
+        });
+    @endif
+
+    $(function(){
+        $("#btnGuardar").click(function(e){
+            // e.preventDefault();
+            // if(cont==0){
+            //     Swal.fire({
+            //         icon:'error',
+            //         text:'error al ingresar datos'
+            //     });
+            // }
+            // else
+            // {
+            //     Swal.fire({
+            //         icon:'info',
+            //         text:'El formulario ya fue enviado'
+            //     });
+            // }
+        });
+
+    });
+
 </script>
 @endsection
