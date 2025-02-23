@@ -7,9 +7,8 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
-class Categoria_store_request extends FormRequest
+class Categoria_update_request extends FormRequest
 {
-
     public function authorize(): bool
     {
         return true;
@@ -29,8 +28,9 @@ class Categoria_store_request extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre_categoria'=>['required','min:3','max:255',Rule::unique(Categoria::class,'nombre_categoria')],
+            'nombre_categoria'=>['required','min:3','max:255',Rule::unique(Categoria::class,'nombre_categoria')->ignore($this->route('id_categoria'),'id_categoria')],
             'descripcion'=>['nullable','min:5','max:500'],
+            'estado'=>['required','in:1,0']
         ];
     }
 
@@ -40,5 +40,4 @@ class Categoria_store_request extends FormRequest
 
         ];
     }
-
 }

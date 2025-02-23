@@ -63,20 +63,38 @@
 
     $(function(){
         $("#btnGuardar").click(function(e){
-            // e.preventDefault();
-            // if(cont==0){
-            //     Swal.fire({
-            //         icon:'error',
-            //         text:'error al ingresar datos'
-            //     });
-            // }
-            // else
-            // {
-            //     Swal.fire({
-            //         icon:'info',
-            //         text:'El formulario ya fue enviado'
-            //     });
-            // }
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Categoria',
+                text: '¿Esta seguro de grabar?',
+                icon: 'question',
+                showCancelButton: true,
+                allowOutsideClick:false,
+                allowEscapeKey:false,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Si, estoy seguro',
+                cancelButtonText:'No',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if(cont==0)
+                    {
+                        cont=1;
+                        $("#formulario_crear").submit();
+                        $("#btnGuardar").attr('disabled',true);
+                    }
+                    else
+                    {
+                        Swal.fire({
+                            icon:'info',
+                            text:'El formulario ya fue enviado'
+                        });
+                    }
+                }
+            });
+
+
         });
 
     });

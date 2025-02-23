@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('estado',1)->default('1');
             $table->integer('stock')->default(0);
             $table->decimal('precio',11,2)->default(0);
+            $table->string('nombre_imagen')->nullable();
+            $table->dateTime('fecha_imagen')->nullable();
             $table->unique(['nombre_producto']);
-            $table->foreign('id_categoria')->references('id_categoria')->on('categorias')->onDelete('no action')->onUpdate('no action');
+            $table->foreign('id_categoria')->references('id_categoria')->on('categorias')/*->onDelete('no action')->onUpdate('no action')*/;
         });
     }
 

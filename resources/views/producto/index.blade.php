@@ -1,33 +1,35 @@
 @extends('layout.adminlte.index')
 
-@section('titulo','Categoria listado')
+@section('titulo','Producto listado')
 
 @section('contenido')
 <div class="row">
     <div class="col-12 ">
         <div class="card">
             <div class="card-header text-white bg-primary">
-                listado de categoria
-                <a href="{{route('categoria.create')}}" style="float: right" title="Crear nueva categoria" ><i class="fas fa-plus"></i></a>
+                listado de productos
+                <a href="{{route('producto.create')}}" style="float: right" title="Crear nuevo producto" ><i class="fas fa-plus"></i></a>
             </div>
             <div class="card-body">
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>codigo</th>
+                            <th>nombre producto</th>
                             <th>nombre categoria</th>
-                            <th>descripcion</th>
+                            <th>imagen</th>
                             <th>estado</th>
                             <th></th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ( $data_categoria as $item )
+                        @foreach ( $data as $item )
                             <tr>
-                                <td>{{$item->id_categoria}}</td>
+                                <td>{{$item->id_producto}}</td>
+                                <td>{{$item->nombre_producto}}</td>
                                 <td>{{$item->nombre_categoria}}</td>
-                                <td>{{$item->descripcion}}</td>
+                                <td></td>
                                 <td style="text-align: center" >
                                     @if ($item->estado=='1')
                                         <span class="alert alert-success">
@@ -41,14 +43,14 @@
 
                                 </td>
                                 <td style="text-align: center" >
-                                    <a class="btn btn-primary" title="{{'editar: '.$item->nombre_categoria}}" href="{{route('categoria.edit',['id_categoria'=>$item->id_categoria])}}" ><i class="fas fa-edit"></i></a>
+                                    <a class="btn btn-primary" title="{{'editar: '.$item->nombre_producto}}" href="{{route('producto.edit',['id_producto'=>$item->id_producto])}}" ><i class="fas fa-edit"></i></a>
                                 </td>
                                 <td style="text-align: center" >
                                     @if ($item->estado=='1')
-                                        <form action="{{route('categoria.delete',['id_categoria'=>$item->id_categoria])}}"  method="post" class="formulario_eliminar" >
+                                        <form action="{{route('producto.delete',['id_producto'=>$item->id_producto])}}"  method="post" class="formulario_eliminar" >
                                             @csrf
                                             <input type="hidden" name="_method" value="delete" >
-                                            <button class="btn btn-danger btn_eliminar" title="{{'eliminar: '.$item->nombre_categoria}}" > <i class="fas fa-trash-alt"></i> </button>
+                                            <button class="btn btn-danger btn_eliminar" title="{{'eliminar: '.$item->nombre_producto}}" > <i class="fas fa-trash-alt"></i> </button>
                                         </form>
                                     @endif
                                 </td>
@@ -89,7 +91,7 @@
 
 
             Swal.fire({
-                title: 'Categoria',
+                title: 'Producto',
                 text: '¿Esta seguro de eliminar?',
                 icon: 'question',
                 showCancelButton: true,

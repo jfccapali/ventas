@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\categoria\Categoria_index_request;
 use App\Http\Requests\categoria\Categoria_store_request;
-use App\Http\Servicios\categoria\CategoriaService;
+use App\Http\Requests\categoria\Categoria_update_request;
+use App\Http\Servicios\CategoriaService;
 use App\Models\Categoria;
 use Exception;
 use Illuminate\Http\Request;
@@ -64,6 +64,30 @@ class CategoriaController extends Controller
             return view('categoria.edit',['data'=>$data]);
         } catch (\Throwable $th) {
             //throw $th;
+        }
+    }
+
+    public function update(int $id_categoria,Categoria_update_request $request)
+    {
+        try {
+
+            $this->categoria_service->update($request->nombre_categoria,$request->descripcion,$request->estado,$id_categoria,null);
+
+            return redirect()->route('categoria.index')->with('success','Se guardo los cambios correctamente');
+        } catch (\Throwable $th) {
+            return redirect()->route('categoria.edit',['id_categoria',])->with('error',$th->getMessage());
+        }
+    }
+
+    public function delete(int $id_categoria)
+    {
+        try {
+
+            $this->categoria_service->delete($id_categoria,null);
+
+            return redirect()->route('categoria.index')->with('success','Se elimino correctamente');
+        } catch (\Throwable $th) {
+            return redirect()->route('categoria.index')->with('error',$th->getMessage());
         }
     }
 
