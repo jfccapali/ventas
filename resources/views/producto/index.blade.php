@@ -17,6 +17,8 @@
                             <th>codigo</th>
                             <th>nombre producto</th>
                             <th>nombre categoria</th>
+                            <th>Precio</th>
+                            <th>Stock</th>
                             <th>imagen</th>
                             <th>estado</th>
                             <th></th>
@@ -29,6 +31,8 @@
                                 <td>{{$item->id_producto}}</td>
                                 <td>{{$item->nombre_producto}}</td>
                                 <td>{{$item->nombre_categoria}}</td>
+                                <td style="text-align: right;">{{$item->precio==null?'0':number_format($item->precio,2)}}</td>
+                                <td style="text-align: right;">{{$item->stock}}</td>
                                 <td></td>
                                 <td style="text-align: center" >
                                     @if ($item->estado=='1')
