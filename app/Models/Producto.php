@@ -15,7 +15,7 @@ class Producto extends Model
         try {
             $query=$this->from('productos','t1')
                 ->join('categorias as t2','t1.id_categoria','=','t2.id_categoria')
-                ->select(['t1.id_producto','t1.nombre_producto','t2.nombre_categoria','t1.descripcion','estado','nombre_imagen','fecha_imagen']);
+                ->select(['t1.id_producto','t1.nombre_producto','t2.nombre_categoria','t1.descripcion','t1.estado','t1.nombre_imagen','t1.fecha_imagen']);
 
             if($nombre_producto!=null){
                 $query->where('t1.nombre_producto','like','%'.$nombre_producto.'%');
@@ -29,7 +29,7 @@ class Producto extends Model
                 $query->where('t1.id_categoria',$id_categoria);
             }
 
-            return $query->paginate($page,'',$per_page);
+            return $query->paginate($per_page,'','page',$page);
         } catch (\Throwable $th) {
             throw $th;
         }

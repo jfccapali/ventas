@@ -24,7 +24,7 @@ class CategoriaController extends Controller
         try {
 
             $categoria=new Categoria();
-            $data=$categoria->paginate(10);
+            $data=$categoria->paginate(5);
 
             return view('categoria.index',['data_categoria'=>$data]);
         } catch (\Throwable $th) {

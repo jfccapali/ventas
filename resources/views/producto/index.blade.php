@@ -61,6 +61,11 @@
                 </table>
 
             </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-center" >
+                    {{$data->links()}}
+                </div>
+            </div>
         </div>
     </div>
 </div>
