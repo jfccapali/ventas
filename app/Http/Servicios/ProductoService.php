@@ -9,12 +9,12 @@ use Exception;
 
 class ProductoService extends Service
 {
-    public function listado_paginado($nombre_producto,$id_producto,$id_categoria,$per_page,$page)
+    public function listado_paginado($nombre_producto,$id_producto,$id_categoria,$per_page,$page,$url)
     {
         try {
             $producto=new Producto();
 
-            return $producto->lista_paginada($nombre_producto,$id_producto,$id_categoria,$per_page,$page);
+            return $producto->lista_paginada($nombre_producto,$id_producto,$id_categoria,$per_page,$page,$url);
         } catch (\Throwable $th) {
             throw $th;
         }

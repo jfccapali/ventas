@@ -10,7 +10,7 @@ class Producto extends Model
     protected $table='productos';
     protected $primaryKey = 'id_producto';
 
-    public function lista_paginada($nombre_producto,$id_producto,$id_categoria,$per_page,$page)
+    public function lista_paginada($nombre_producto,$id_producto,$id_categoria,$per_page,$page,$url)
     {
         try {
             $query=$this->from('productos','t1')
@@ -29,7 +29,7 @@ class Producto extends Model
                 $query->where('t1.id_categoria',$id_categoria);
             }
 
-            return $query->paginate($per_page,'','page',$page);
+            return $query->paginate($per_page,'','page',$page)->setPath($url);
         } catch (\Throwable $th) {
             throw $th;
         }

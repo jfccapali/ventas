@@ -20,9 +20,9 @@ class ProductoController extends Controller
 
     public function index(Request $request)
     {
-        try {
+        try {dd($_SERVER);
 
-            $data=$this->producto_service->listado_paginado($request->nombre_producto,$request->codigo_producto,$request->codigo_categoria,$request->per_page,$request->page);
+            $data=$this->producto_service->listado_paginado($request->nombre_producto,$request->codigo_producto,$request->codigo_categoria,1,$request->page,route('producto.index').'?'.$_SERVER['QUERY_STRING']);
 
             return view('producto.index',['data'=>$data]);
         } catch (\Throwable $th) {
