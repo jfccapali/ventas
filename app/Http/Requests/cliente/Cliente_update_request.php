@@ -5,7 +5,7 @@ namespace App\Http\Requests\cliente;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Http\FormRequest;
 
-class Cliente_store_request extends FormRequest
+class Cliente_update_request extends FormRequest
 {
     public function authorize(): bool
     {
@@ -36,7 +36,8 @@ class Cliente_store_request extends FormRequest
             'direccion'=>['required','min:5','max:255'],
             'sexo'=>['required','in:M,F'],
             'fecha_nacimiento'=>['required','date','date_format:Y-m-d'],
-            'foto'=>['required','file','mimetypes:image/png','max:1024']
+            'foto'=>['required','file','mimetypes:image/png','max:1024'],
+            'estado'=>['required','in:1,0']
         ];
     }
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Servicios;
 
-use App\Http\Servicios\Service;
-use App\Models\Cliente;
 use Exception;
+use App\Models\Cliente;
+use Illuminate\Support\Str;
+use App\Http\Servicios\Service;
+use Storage;
 
 class ClienteService extends Service
 {
@@ -19,7 +21,7 @@ class ClienteService extends Service
         }
     }
 
-    public function store($nombres,$apellido_paterno,$apellido_materno,$direccion,$sexo,$fecha_nacimiento,$file_imagen)
+    public function store($nombres,$apellido_paterno,$apellido_materno,$direccion,$sexo,$fecha_nacimiento,$foto)
     {
         try {
             $cliente=new Cliente();
@@ -31,6 +33,24 @@ class ClienteService extends Service
             $cliente->fecha_nacimiento=$fecha_nacimiento;
             $cliente->estado='1';
             $cliente->save();
+
+            if($foto!=null){
+                $id_cliente=$cliente->id_cliente;
+
+                $extesion=$foto->getClientOriginalExtension();
+                $nombre=(string)Str::orderedUuid().'.'.$extesion;
+                $ruta='/cliente/'.$nombre;
+
+                if(!Storage::disk('public')->put($ruta,\File::get($foto))){
+                    throw new Exception('La foto no se pudo guardar');
+                }
+
+                $arreglo=[];
+                $arreglo['nombre_imagen']=$nombre;
+                $arreglo['fecha_imagen']=now();
+
+                $cliente->where('id_cliente',$id_cliente)->update($arreglo);
+            }
 
         } catch (\Throwable $th) {
             throw $th;
@@ -54,19 +74,36 @@ class ClienteService extends Service
         }
     }
 
-    public function update(int $id_cliente,$nombres,$apellido_paterno,$apellido_materno,$direccion,$sexo,$fecha_nacimiento,$estado,$file_imagen)
+    public function update(int $id_cliente,$nombres,$apellido_paterno,$apellido_materno,$direccion,$sexo,$fecha_nacimiento,$estado,$foto)
     {
         try {
 
             $cliente=new Cliente();
 
-            $cantidad_registros=$cliente->where('id_cliente',$id_cliente)->count();
+            $datab=$cliente->select(['nombre_imagen'])->where('id_cliente',$id_cliente)->first();
 
-            if($cantidad_registros==0){
+            if($datab==null){
                 throw new Exception('Registro no encontrado');
             }
 
             $arreglo=[];
+            if($foto!=null){
+                $extesion=$foto->getClientOriginalExtension();
+                $nombre=(string)Str::orderedUuid().'.'.$extesion;
+                $ruta='/cliente/'.$nombre;
+
+                if(!Storage::disk('public')->put($ruta,\File::get($foto))){
+                    throw new Exception('La foto no se pudo guardar');
+                }
+                if($datab->nombre_imagen){
+                    Storage::disk('public')->delete('/cliente/'.$datab->nombre_imagen);
+                }
+
+                $arreglo['nombre_imagen']=$nombre;
+                $arreglo['fecha_imagen']=now();
+            }
+
+
             $arreglo['nombres']=$nombres;
             $arreglo['apellido_paterno']=$apellido_paterno;
             $arreglo['apellido_materno']=$apellido_materno;

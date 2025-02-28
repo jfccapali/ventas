@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\producto\Producto_store_request;
-use App\Http\Requests\producto\Producto_update_request;
-use App\Http\Servicios\ProductoService;
 use App\Models\Categoria;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Servicios\ProductoService;
+use App\Http\Requests\producto\Producto_store_request;
+use App\Http\Requests\producto\Producto_update_request;
 
 class ProductoController extends Controller
 {
@@ -20,9 +21,9 @@ class ProductoController extends Controller
 
     public function index(Request $request)
     {
-        try {dd($_SERVER);
+        try {
 
-            $data=$this->producto_service->listado_paginado($request->nombre_producto,$request->codigo_producto,$request->codigo_categoria,1,$request->page,route('producto.index').'?'.$_SERVER['QUERY_STRING']);
+            $data=$this->producto_service->listado_paginado($request->nombre_producto,$request->codigo_producto,$request->codigo_categoria,5,$request->page,route('producto.index').'?'.$_SERVER['QUERY_STRING']);
 
             return view('producto.index',['data'=>$data]);
         } catch (\Throwable $th) {
@@ -43,11 +44,13 @@ class ProductoController extends Controller
 
     public function store(Producto_store_request $request)
     {
+        DB::beginTransaction();
         try {
-            $this->producto_service->store($request->nombre_producto,$request->descripcion,$request->categoria,$request->stock,$request->precio,null);
-
+            $this->producto_service->store($request->nombre_producto,$request->descripcion,$request->categoria,$request->stock,$request->precio,$request->file('imagen'));
+            DB::commit();
             return redirect()->route('producto.index')->with('success','Se grabo correctamente');
         } catch (\Throwable $th) {
+            DB::rollBack();
             return redirect()->route('producto.create')->with('error',$th->getMessage());
         }
     }
@@ -67,7 +70,7 @@ class ProductoController extends Controller
     public function update(int $id_producto,Producto_update_request $request)
     {
         try {
-            $this->producto_service->update($id_producto,$request->nombre_producto,$request->descripcion,$request->categoria,$request->stock,$request->precio,$request->estado,null);
+            $this->producto_service->update($id_producto,$request->nombre_producto,$request->descripcion,$request->categoria,$request->stock,$request->precio,$request->estado,$request->file('imagen'));
 
             return redirect()->route('producto.index')->with('success','Se guardaron los cambios correctamente');
         } catch (\Throwable $th) {

@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header text-white bg-primary">CREAR NUEVO PRODUCTO</div>
             <div class="card-body">
-                <form action="{{route('producto.store')}}" method="post" >
+                <form action="{{route('producto.store')}}" method="post" enctype="multipart/form-data" >
                     @csrf
                     <div class="form-group">
                         <label for="nombre_producto" >Nombre Producto</label>
@@ -39,6 +39,11 @@
                         <label for="precio" >Precio</label>
                         <input type="text" class="form-control" id="precio" name="precio" value="{{old('precio')}}" >
                         <div class="error">@error('precio') {{$message}} @enderror</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen" >Imagen</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen"  >
+                        <div class="error">@error('imagen') {{$message}} @enderror</div>
                     </div>
                     <button class="btn btn-primary" id="btnGuardar" ><i class="fas fa-save"></i>  Grabar</button>
                     <a class="btn btn-danger" href="{{route('producto.index')}}" > <i class="fas fa-door-open"></i> Salir</a>

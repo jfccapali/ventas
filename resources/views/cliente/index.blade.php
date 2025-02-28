@@ -53,7 +53,11 @@
                         @foreach ( $data as $item )
                             <tr>
                                 <td>{{$item->id_cliente}}</td>
-                                <td></td>
+                                <td>
+                                    @if ($item->nombre_imagen)
+                                        <img src="{{asset('storage/cliente/'.$item->nombre_imagen.'?fecha='.$item->fecha_imagen)}}" style="max-width: 150px" class="mx-auto d-block img-thumbnail img-fluid">
+                                    @endif
+                                </td>
                                 <td>{{$item->apellido_paterno}} {{$item->apellido_materno}} {{', '.$item->nombres}}</td>
                                 <td>{{$item->direccion}}</td>
                                 <td>{{$item->sexo}}</td>

@@ -33,7 +33,11 @@
                                 <td>{{$item->nombre_categoria}}</td>
                                 <td style="text-align: right;">{{$item->precio==null?'0':number_format($item->precio,2)}}</td>
                                 <td style="text-align: right;">{{$item->stock}}</td>
-                                <td></td>
+                                <td>
+                                    @if ($item->nombre_imagen)
+                                        <img src="{{asset('storage/producto/'.$item->nombre_imagen.'?fecha='.$item->fecha_imagen)}}" style="max-width: 150px" class="mx-auto d-block img-thumbnail img-fluid">
+                                    @endif
+                                </td>
                                 <td style="text-align: center" >
                                     @if ($item->estado=='1')
                                         <span class="alert alert-success">

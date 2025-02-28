@@ -20,7 +20,7 @@ return new class extends Migration
             $table->enum('sexo',['M','F']);
             $table->date('fecha_nacimiento');
             $table->string('nombre_imagen',255)->nullable();
-            $table->datetime('fecha_imagen');
+            $table->datetime('fecha_imagen')->nullable();
             $table->string('estado','1')->default('1');
 
         });

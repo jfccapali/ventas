@@ -11,7 +11,7 @@
                 editar cliente {{$data->apellido_paterno}} {{$data->apellido_materno}} {{', '.$data->nombres}}
             </div>
             <div class="card-body">
-                <form action="{{route('cliente.update',['id_cliente'=>$data->id_cliente])}}" method="POST" id="formulario_crear" >
+                <form action="{{route('cliente.update',['id_cliente'=>$data->id_cliente])}}" method="POST" id="formulario_crear" enctype="multipart/form-data" >
                     @csrf
                     <input type="hidden" name="_method" value="put">
                     <div class="form-group">
@@ -47,6 +47,11 @@
                         <label >Fecha Nacimiento</label>
                         <input type="date" name="fecha_nacimiento" class="form-control"  value="{{old('fecha_nacimiento',$data->fecha_nacimiento)}}" >
                         <div class="error">@error('fecha_nacimiento') {{$message}} @enderror</div>
+                    </div>
+                    <div class="form-group">
+                        <label >Foto</label>
+                        <input type="file" class="form-control-file border" name="foto" >
+                        <div class="error">@error('foto') {{$message}} @enderror</div>
                     </div>
                     <div class="form-group">
                         <label for="estado">Estado</label>

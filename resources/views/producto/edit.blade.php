@@ -8,7 +8,7 @@
         <div class="card">
             <div class="card-header text-white bg-primary">EDITAR PRODUCTO: {{$data->nombre_producto}}</div>
             <div class="card-body">
-                <form action="{{route('producto.update',['id_producto'=>$data->id_producto])}}" method="post" >
+                <form action="{{route('producto.update',['id_producto'=>$data->id_producto])}}" method="post" enctype="multipart/form-data" >
                     @csrf
                     <input type="hidden" name="_method" value="put" >
                     <div class="form-group">
@@ -40,6 +40,11 @@
                         <label for="precio" >Precio</label>
                         <input type="text" class="form-control" id="precio" name="precio" value="{{old('precio',$data->precio)}}" >
                         <div class="error">@error('precio') {{$message}} @enderror</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="imagen" >Imagen</label>
+                        <input type="file" class="form-control" id="imagen" name="imagen"  >
+                        <div class="error">@error('imagen') {{$message}} @enderror</div>
                     </div>
                     <div class="form-group">
                         <label for="estado">Estado</label>

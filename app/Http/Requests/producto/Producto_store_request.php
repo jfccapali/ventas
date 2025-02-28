@@ -33,7 +33,7 @@ class Producto_store_request extends FormRequest
             'categoria'=>['required','integer','exists:categorias,id_categoria'],
             'stock'=>['required','integer','min:0'],
             'precio'=>['required','numeric','min:0','decimal:0,2'],
-            'imagen'=>['nullable','file','mimetypes:img/jpge,img/png','max:1024']
+            'imagen'=>['required','file','mimetypes:image/jpeg,image/png','max:1024']
         ];
     }
 

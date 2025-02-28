@@ -11,7 +11,7 @@
                 crear nuevo cliente
             </div>
             <div class="card-body">
-                <form action="{{route('cliente.store')}}" method="POST" id="formulario_crear" >
+                <form action="{{route('cliente.store')}}" method="POST" id="formulario_crear" enctype="multipart/form-data" >
                     @csrf
                     <div class="form-group">
                         <label >Nombres</label>
@@ -46,6 +46,11 @@
                         <label >Fecha Nacimiento</label>
                         <input type="date" name="fecha_nacimiento" class="form-control"  value="{{old('fecha_nacimiento')}}" >
                         <div class="error">@error('fecha_nacimiento') {{$message}} @enderror</div>
+                    </div>
+                    <div class="form-group">
+                        <label >Foto</label>
+                        <input type="file" class="form-control-file border" name="foto" >
+                        <div class="error">@error('foto') {{$message}} @enderror</div>
                     </div>
                     <button class="btn btn-primary" id="btnGuardar" ><i class="fas fa-save"></i>  Grabar</button>
                     <a class="btn btn-danger" href="{{route('cliente.index')}}" > <i class="fas fa-door-open"></i> Salir</a>

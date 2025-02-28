@@ -34,7 +34,7 @@ class Producto_update_request extends FormRequest
             'stock'=>['required','integer','min:0'],
             'precio'=>['required','numeric','min:0','decimal:0,2'],
             'estado'=>['required','in:1,0'],
-            'imagen'=>['nullable','file','mimetypes:img/jpge,img/png','max:1024']
+            'imagen'=>['nullable','file','mimetypes:image/jpeg,image/png','max:1024']
         ];
     }
 
