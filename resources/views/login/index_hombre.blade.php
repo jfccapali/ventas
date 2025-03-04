@@ -3,7 +3,7 @@
 @section('titulo','BIENVENIDO')
 
 @section('contenido')
-    <p>BIENVENIDO</p>
+    <p>BIENVENIDO HOMBRE</p>
     <br>
     {{Auth::user()}}
 

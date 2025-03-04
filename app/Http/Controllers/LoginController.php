@@ -63,4 +63,24 @@ class LoginController extends Controller
         }
     }
 
+    public function index_hombre()
+    {
+        try {
+
+            return view('login.index_hombre');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
+    public function index_mujer()
+    {
+        try {
+
+            return view('login.index_mujer');
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 }

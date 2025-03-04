@@ -1,30 +1,28 @@
 @extends('layout.adminlte.index')
 
-@section('titulo','Producto listado')
+@section('titulo','Usuario listado')
 
 @section('contenido')
 <div class="row">
     <div class="col-12 ">
         <div class="card">
             <div class="card-header text-white bg-primary">
-                listado de productos
-                @can('producto.create')
-                    <a href="{{route('producto.create')}}" style="float: right" title="Crear nuevo producto" ><i class="fas fa-plus"></i></a>
-                @endcan
-
-
+                listado de usuarios
+                <a href="{{route('usuario.create')}}" style="float: right" title="Crear nueva usuario" ><i class="fas fa-plus"></i></a>
             </div>
             <div class="card-body">
                 <table class="table table-hover table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>codigo</th>
-                            <th>nombre producto</th>
-                            <th>nombre categoria</th>
-                            <th>Precio</th>
-                            <th>Stock</th>
-                            <th>imagen</th>
+                            <th>foto</th>
+                            <th>usuario</th>
+                            <th>nombres</th>
+                            <th>direccion</th>
+                            <th>sexo</th>
+                            <th>fecha nacimiento</th>
                             <th>estado</th>
+                            <th></th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -32,16 +30,17 @@
                     <tbody>
                         @foreach ( $data as $item )
                             <tr>
-                                <td>{{$item->id_producto}}</td>
-                                <td>{{$item->nombre_producto}}</td>
-                                <td>{{$item->nombre_categoria}}</td>
-                                <td style="text-align: right;">{{$item->precio==null?'0':number_format($item->precio,2)}}</td>
-                                <td style="text-align: right;">{{$item->stock}}</td>
+                                <td>{{$item->id_usuario}}</td>
                                 <td>
                                     @if ($item->nombre_imagen)
-                                        <img src="{{asset('storage/producto/'.$item->nombre_imagen.'?fecha='.$item->fecha_imagen)}}" style="max-width: 150px" class="mx-auto d-block img-thumbnail img-fluid">
+                                        <img src="{{asset('storage/usuario/'.$item->nombre_imagen.'?fecha='.$item->fecha_imagen)}}" style="max-width: 150px" class="mx-auto d-block img-thumbnail img-fluid">
                                     @endif
                                 </td>
+                                <td>{{$item->usuario}}</td>
+                                <td>{{$item->apellido_paterno}} {{$item->apellido_materno}} {{', '.$item->nombres}}</td>
+                                <td>{{$item->direccion}}</td>
+                                <td>{{$item->sexo}}</td>
+                                <td>{{$item->fecha_nacimiento}}</td>
                                 <td style="text-align: center" >
                                     @if ($item->estado=='1')
                                         <span class="alert alert-success">
@@ -54,21 +53,20 @@
                                     @endif
 
                                 </td>
-                                <td style="text-align: center" >
-                                    @can('producto.edit')
-                                    <a class="btn btn-primary" title="{{'editar: '.$item->nombre_producto}}" href="{{route('producto.edit',['id_producto'=>$item->id_producto])}}" ><i class="fas fa-edit"></i></a>
-                                    @endcan
+                                <td style="text-align: center">
+                                    <a href="{{route('usuario.asignar_roles',['id_usuario'=>$item->id_usuario])}}" class="btn btn-info" title="{{'asignar roles: '.$item->apellido_paterno.' '.$item->apellido_materno.', '.$item->nombres}}"> <i class="fas fa-registered"></i> </a>
                                 </td>
                                 <td style="text-align: center" >
-                                    @can('producto.delete')
+                                    <a class="btn btn-primary" title="{{'editar: '.$item->apellido_paterno.' '.$item->apellido_materno.', '.$item->nombres}}" href="{{route('usuario.edit',['id_usuario'=>$item->id_usuario])}}" ><i class="fas fa-edit"></i></a>
+                                </td>
+                                <td style="text-align: center" >
                                     @if ($item->estado=='1')
-                                        <form action="{{route('producto.delete',['id_producto'=>$item->id_producto])}}"  method="post" class="formulario_eliminar" >
+                                        <form action="{{route('usuario.delete',['id_usuario'=>$item->id_usuario])}}"  method="post" class="formulario_eliminar" >
                                             @csrf
                                             <input type="hidden" name="_method" value="delete" >
-                                            <button class="btn btn-danger btn_eliminar" title="{{'eliminar: '.$item->nombre_producto}}" > <i class="fas fa-trash-alt"></i> </button>
+                                            <button class="btn btn-danger btn_eliminar" title="{{'eliminar: '.$item->apellido_paterno.' '.$item->apellido_materno.', '.$item->nombres}}" > <i class="fas fa-trash-alt"></i> </button>
                                         </form>
                                     @endif
-                                    @endcan
                                 </td>
                             </tr>
                         @endforeach
@@ -112,7 +110,7 @@
 
 
             Swal.fire({
-                title: 'Producto',
+                title: 'Usuario',
                 text: '¿Esta seguro de eliminar?',
                 icon: 'question',
                 showCancelButton: true,
@@ -146,3 +144,5 @@
 
     </script>
 @endsection
+
+
