@@ -83,4 +83,15 @@ class ProductoController extends Controller
 
     }
 
+    public function list_productos(Request $request)
+    {
+        try {
+            $data=$this->producto_service->list_productos($request->search);
+
+            return $this->producto_service->send_success($data,null);
+        } catch (\Throwable $th) {
+            return $this->producto_service->send_error([],$th->getMessage(),500);
+        }
+    }
+
 }

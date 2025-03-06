@@ -139,4 +139,14 @@ class ClienteService extends Service
         }
     }
 
+    public function list_clientes($texto)
+    {
+        try {
+            $texto=Str::of($texto)->trim()->upper()->toString();
+            return Cliente::select(['id_cliente','nombres','apellido_paterno','apellido_materno'])->whereRaw("(upper(concat(apellido_paterno,' ',apellido_materno,' ',nombres)) like ? )",[$texto.'%'])->where('estado','1')->take(10)->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 }

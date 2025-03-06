@@ -117,4 +117,15 @@ class ProductoService extends Service
         }
     }
 
+    public function list_productos($texto)
+    {
+        try {
+            $texto=Str::of($texto)->trim()->upper()->toString();
+
+            return Producto::select(['id_producto','nombre_producto','stock','precio'])->where('estado','1')->whereRaw("(upper(nombre_producto) like ? )",[$texto.'%'])->take(10)->get();
+        } catch (\Throwable $th) {
+            throw $th;
+        }
+    }
+
 }

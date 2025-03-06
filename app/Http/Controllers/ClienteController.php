@@ -93,4 +93,15 @@ class ClienteController extends Controller
         }
     }
 
+    public function list_clientes(Request $request)
+    {
+        try {
+            $data=$this->cliente_service->list_clientes($request->texto);
+
+            return $this->cliente_service->send_success($data,null);
+        } catch (\Throwable $th) {
+            return $this->cliente_service->send_error([],$th->getMessage(),500);
+        }
+    }
+
 }

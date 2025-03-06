@@ -77,3 +77,6 @@ Route::post('/venta/registrar_venta_store',[VentaController::class,'registrar_ve
 Route::get('/venta/reporte',[VentaController::class,'reporte'])->name('venta.reporte')->middleware(['auth']);
 
 
+//peticiones json
+Route::get('/cliente/list_clientes',[ClienteController::class,'list_clientes'])->name('cliente.list_clientes')->middleware(['auth']);
+Route::get('/producto/list_productos',[ProductoController::class,'list_productos'])->name('producto.list_productos')->middleware(['auth']);
