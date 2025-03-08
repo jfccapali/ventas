@@ -137,7 +137,10 @@ async function  grabar_venta(lista_producto,codigo_cliente)
     await axios.post('/venta/registrar_venta_store',data)
     .then(response=>{
         let data=response.data.data;
-
+        Swal.fire({
+            icon:'success',
+            text:data.message
+        });
     }).catch(error=>{
         let status=error.response.status;
         let data=error.response.data;

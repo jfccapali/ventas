@@ -3,8 +3,10 @@
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PdfController;
 use App\Http\Controllers\PermisoController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\ReporteController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UsuarioController;
 use App\Http\Controllers\VentaController;
@@ -80,3 +82,9 @@ Route::get('/venta/reporte',[VentaController::class,'reporte'])->name('venta.rep
 //peticiones json
 Route::get('/cliente/list_clientes',[ClienteController::class,'list_clientes'])->name('cliente.list_clientes')->middleware(['auth']);
 Route::get('/producto/list_productos',[ProductoController::class,'list_productos'])->name('producto.list_productos')->middleware(['auth']);
+
+//reporte
+Route::get('/reporte/reporte_ventas',[ReporteController::class,'reporte_ventas'])->name('reporte.reporte_ventas')->middleware(['auth']);
+
+//pdf
+Route::get('/pdf/reporte_ventas',[PdfController::class,'reporte_ventas'])->name('pdf.reporte_ventas')->middleware(['auth']);
